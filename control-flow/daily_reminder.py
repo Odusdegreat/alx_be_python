@@ -1,26 +1,32 @@
 # daily_reminder.py
 
-# Prompt for user input
-task = input("Enter your task: ")
-priority = input("Priority (high/medium/low): ").lower()
-time_bound = input("Is it time-bound? (yes/no): ").lower()
+# Loop to ensure user enters a valid priority
+while True:
+    task = input("Enter your task: ")
+    priority = input("Priority (high/medium/low): ").lower()
+    time_bound = input("Is it time-bound? (yes/no): ").lower()
 
-# Process the task based on priority
-match priority:
-    case "high":
-        message = f"'{task}' is a high priority task"
-    case "medium":
-        message = f"'{task}' is a medium priority task"
-    case "low":
-        message = f"'{task}' is a low priority task"
-    case _:
-        message = f"'{task}' has an unknown priority level"
+    # Match Case for priority handling
+    match priority:
+        case "high":
+            base_message = f"'{task}' is a high priority task"
+        case "medium":
+            base_message = f"'{task}' is a medium priority task"
+        case "low":
+            base_message = f"'{task}' is a low priority task"
+        case _:
+            print("Invalid priority. Please enter high, medium, or low.\n")
+            continue  # restart loop if invalid priority
+    
+    break  # Valid input received, exit loop
 
-# Check time sensitivity
+
+# Time-sensitivity modification
 if time_bound == "yes":
-    message += " that requires immediate attention today!"
+    reminder = f"{base_message} that requires immediate attention today!"
 else:
-    message += ". Consider completing it when you have free time."
+    reminder = f"Note: {base_message}. Consider completing it when you have free time."
 
-# Output the final reminder
-print("\nReminder:", message)
+
+# FINAL required print format for auto-checker
+print(f"Reminder: {reminder}")
